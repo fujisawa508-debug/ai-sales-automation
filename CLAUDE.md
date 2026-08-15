@@ -30,7 +30,7 @@ run_scheduled.bat
 ```
 Runs `python main.py --scrape --research --save --all` with no prompts, redirecting stdout/stderr to `logs\<timestamp>.log` (log directory is created on first run and never pruned automatically).
 
-There is no test suite, linter, or build step in this repo. This directory is not under version control (no `.git`).
+There is no test suite, linter, or build step in this repo.
 
 The `--research` flag requires `ANTHROPIC_API_KEY` to be set in the environment (used via the `anthropic` SDK, model `claude-haiku-4-5-20251001`).
 
@@ -62,3 +62,7 @@ schtasks /create /tn "AI営業自動化_週次" /tr "\"C:\Users\koya.fujisawa\ai
 Two hard requirements for this to actually work unattended:
 - **`ANTHROPIC_API_KEY` must be set persistently** (e.g. `setx ANTHROPIC_API_KEY "..."`, once, or via System Properties → Environment Variables) — Task Scheduler-launched processes don't inherit a `$env:...` set only in an interactive shell. Without this, `--research` silently fails per-row with `[エラー] 環境変数 ANTHROPIC_API_KEY が設定されていません` (visible only in the log file, not a crash).
 - **The task must be configured "Run only when user is logged on"** (not "run whether user is logged on or not") — `outlook_draft.py`'s Outlook COM automation requires an interactive desktop session for the target Windows account; it does not work under SYSTEM or a logged-off session.
+
+## Git Workflow
+
+@docs/git-workflow.md
